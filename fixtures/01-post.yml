@@ -1,0 +1,6 @@
+App\Entity\Post:
+    post_{1..20}:
+        title: <sentence(6, true)>
+        body: <text(1000)>
+        publishDate: <dateTimeBetween('-1 year', 'now', null)>
+        tags: '<numberBetween(2, 5)>x @tag_<numberBetween(1, 10)>'

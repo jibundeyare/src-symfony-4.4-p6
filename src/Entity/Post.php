@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
 use \DateTime;
+use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,9 +40,14 @@ class Post
      */
     private $tags;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="posts")
+     */
+    private $category;
+
     public function __construct()
     {
-        $publishDate = new DateTime();
+        $this->publishDate = new DateTime();
         $this->tags = new ArrayCollection();
     }
 
@@ -121,6 +126,18 @@ class Post
             $this->tags->removeElement($tag);
             $tag->removePost($this);
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
