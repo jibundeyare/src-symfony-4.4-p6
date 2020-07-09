@@ -35,6 +35,7 @@
         "hautelook/alice-bundle": "^2.7",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
+        "symfony/panther": "^0.7.1",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*"
     },
