@@ -5,7 +5,7 @@ namespace App\Tests;
 use App\Entity\Tag;
 use PHPUnit\Framework\TestCase;
 
-class AppTest extends TestCase
+class TagTest extends TestCase
 {
     public function testNewTagHasEmptyName()
     {

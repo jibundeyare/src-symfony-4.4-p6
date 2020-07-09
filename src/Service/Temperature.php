@@ -6,6 +6,6 @@ class Temperature
 {
     public function getTemperature()
     {
-        return random_int(15, 30);
+        return random_int(15, 25);
     }
 }
