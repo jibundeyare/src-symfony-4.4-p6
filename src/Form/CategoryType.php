@@ -22,6 +22,7 @@ class CategoryType extends AbstractType
                 },
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
             ])
         ;
     }

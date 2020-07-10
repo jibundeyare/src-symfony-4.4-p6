@@ -7,6 +7,7 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -32,11 +33,13 @@ class Post
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThanOrEqual("today")
      */
     private $publishDate;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="posts")
+     * @Assert\Count(min = 0, max = 5)
      */
     private $tags;
 
@@ -61,7 +64,8 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    // @warning Pour éviter l'erreur 'Expected argument of type "string", "null" given at property path "title".', il faut ajouter un ? devant string
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -73,7 +77,8 @@ class Post
         return $this->body;
     }
 
-    public function setBody(string $body): self
+    // @warning Pour éviter l'erreur 'Expected argument of type "string", "null" given at property path "body".', il faut ajouter un ? devant string
+    public function setBody(?string $body): self
     {
         $this->body = $body;
 

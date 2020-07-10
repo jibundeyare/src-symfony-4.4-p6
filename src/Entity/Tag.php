@@ -6,9 +6,12 @@ use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
+ * @UniqueEntity("name")
  */
 class Tag
 {
@@ -21,6 +24,10 @@ class Tag
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Regex("/[^0-9]+/")
+     * ou Assert\Regex("/\d+/")
+     * @Assert\Length(min = 3, max = 50)
      */
     private $name;
 
@@ -44,7 +51,8 @@ class Tag
         return $this->name;
     }
 
-    public function setName(string $name): self
+    // @warning Pour éviter l'erreur 'Expected argument of type "string", "null" given at property path "name".', il faut ajouter un ? devant string
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
