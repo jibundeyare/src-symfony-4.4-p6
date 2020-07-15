@@ -21,4 +21,12 @@ Projet blog
 
     APP_ENV=dev
     DATABASE_URL=mysql://dba:123@127.0.0.1:3306/src_symfony_4_4_p6?serverVersion=mariadb-10.3.22
+    DISABLE_HTML5_VALIDATION=false
+
+## Le paramètre `DISABLE_HTML5_VALIDATION`
+
+Ce paramètre permet de désactiver la validation dans tous les formulaires.
+
+Si vous voulez que la validation des formulaires soit désactivée quand vous lancez des tests, créez un fichier `.env.test.local` avec le contenu suivant :
+
     DISABLE_HTML5_VALIDATION=true
