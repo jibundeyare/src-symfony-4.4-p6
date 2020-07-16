@@ -17,6 +17,23 @@ Projet blog
     # yarn encore dev
     symfony serve
 
+## Injecter les fixtures dans la BDD
+
+La première fois :
+
+    php bin/console ha:fi:lo
+
+Les fois suivantes, vous êtes obligés de détruire la BDD, de la reconstruire pour de réinjecter les fixtures (si ous voulez que les id soient les mêmes) :
+
+    php bin/console do:da:dr
+    php bin/console do:da:cr
+    php bin/console do:mi:mi
+    php bin/console ha:fi:lo
+
+Si vous trouvez ça long à taper, vous pouvez utiliser un script qui effectues les mêmes opérations :
+
+    bin/hafilo.sh
+
 ## Exemple de fichier `.env.local`
 
     APP_ENV=dev
