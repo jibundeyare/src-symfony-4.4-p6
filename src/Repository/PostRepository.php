@@ -29,10 +29,29 @@ class PostRepository extends ServiceEntityRepository
             ->innerJoin('p.tags', 't')
             ->andWhere('t.id = :id')
             ->setParameter('id', $tag->getId())
-            ->orderBy('p.publishDate', 'DESC')
+            ->orderBy('p.title', 'ASC')
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    /**
+     * @return Post[] Returns an array of Post objects associated with given tag
+     */
+    public function findByTagDQL(Tag $tag)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Post p
+            INNER JOIN p.tags t
+            WHERE t.id = :id
+            ORDER BY p.title ASC'
+        )->setParameter('id', $tag->getId());
+
+        // returns an array of Post objects
+        return $query->getResult();
     }
 
     /*
