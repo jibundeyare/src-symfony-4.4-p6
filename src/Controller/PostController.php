@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +23,18 @@ class PostController extends AbstractController
     {
         return $this->render('post/index.html.twig', [
             'posts' => $postRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/tag/{id}", name="post_tag_index", methods={"GET"})
+     */
+    public function tag_index(PostRepository $postRepository, Tag $tag): Response
+    {
+        $posts = $postRepository->findByTag($tag);
+
+        return $this->render('post/index.html.twig', [
+            'posts' => $posts,
         ]);
     }
 
