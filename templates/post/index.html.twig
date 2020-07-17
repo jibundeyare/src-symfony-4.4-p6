@@ -5,18 +5,25 @@
 {% block body %}
     <h1>Post index</h1>
 
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Id', 'p.id') }}</th>
+                <th{% if pagination.isSorted('p.title') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'Title', 'p.title') }}
+                </th>
                 <th>Tags</th>
-                <th>PublishDate</th>
+                <th{% if pagination.isSorted('p.publishDate') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'PublishDate', 'p.publishDate') }}
+                </th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for post in posts %}
+        {% for post in pagination %}
             <tr>
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
@@ -38,6 +45,9 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
     <a href="{{ path('post_new') }}">Create new</a>
 {% endblock %}

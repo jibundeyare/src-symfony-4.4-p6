@@ -3,4 +3,5 @@ App\Entity\Post:
         title: <sentence(6, true)>
         body: <text(1000)>
         publishDate: <dateTimeBetween('-1 year', 'now', null)>
-        tags: '<numberBetween(2, 5)>x @tag_<numberBetween(1, 10)>'
+        tags: '<numberBetween(0, 5)>x @tag_<numberBetween(1, 10)>'
+        category: '66%? @category_<numberBetween(1, 5)>'

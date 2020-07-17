@@ -20,6 +20,11 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findAll()
+    {
+        return $this->createQueryBuilder('p');
+    }
+
     /**
      * @return Post[] Returns an array of Post objects associated with given tag
      */
@@ -30,8 +35,6 @@ class PostRepository extends ServiceEntityRepository
             ->andWhere('t.id = :id')
             ->setParameter('id', $tag->getId())
             ->orderBy('p.title', 'ASC')
-            ->getQuery()
-            ->getResult()
         ;
     }
 
@@ -42,16 +45,13 @@ class PostRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
 
-        $query = $entityManager->createQuery(
+        return $entityManager->createQuery(
             'SELECT p
             FROM App\Entity\Post p
             INNER JOIN p.tags t
             WHERE t.id = :id
             ORDER BY p.title ASC'
         )->setParameter('id', $tag->getId());
-
-        // returns an array of Post objects
-        return $query->getResult();
     }
 
     /*
