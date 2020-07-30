@@ -96,6 +96,10 @@ class AppCustomAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
+        if (in_array('ROLE_ADMIN', $token->getRoles())) {
+            return new RedirectResponse($this->urlGenerator->generate('admin_index'));
+        }
+
         return new RedirectResponse($this->urlGenerator->generate('profile_index'));
     }
 
