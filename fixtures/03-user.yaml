@@ -1,0 +1,15 @@
+parameters:
+    # use `php bin/console security:encode-password` to get the password hash
+    # @warning add password hash here to avoid error 'Could not find a variable "$..."'
+    # password: 123
+    hash: $argon2id$v=19$m=65536,t=4,p=1$V7hcGgbbkSAMdauC9lZLgQ$TEy1GM0wzJzubT+1gKWAy1euKOyqaJ0vgKvCcxO2Y2M
+
+App\Entity\User:
+    role_admin:
+        email: 'admin@example.com'
+        roles: ['ROLE_ADMIN']
+        password: <{hash}>
+    role_user:
+        email: 'user@example.com'
+        roles: []
+        password: <{hash}>
