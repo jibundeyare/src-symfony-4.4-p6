@@ -3,6 +3,7 @@ parameters:
     # @warning add password hash here to avoid error 'Could not find a variable "$..."'
     # password: 123
     hash: $argon2id$v=19$m=65536,t=4,p=1$V7hcGgbbkSAMdauC9lZLgQ$TEy1GM0wzJzubT+1gKWAy1euKOyqaJ0vgKvCcxO2Y2M
+    token: phaath5aip9yee4ooviSoareeSohthies
 
 App\Entity\User:
     role_admin:
@@ -13,3 +14,8 @@ App\Entity\User:
         email: 'user@example.com'
         roles: []
         password: <{hash}>
+    role_api_user:
+        email: 'api-user@example.com'
+        roles: ['ROLE_API_USER']
+        password: <{hash}>
+        apiToken: <{token}>

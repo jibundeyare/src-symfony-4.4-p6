@@ -14,6 +14,11 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api/
+            guard:
+                authenticators:
+                    - App\Security\ApiTokenAuthenticator
         main:
             anonymous: lazy
             provider: app_user_provider
@@ -38,3 +43,4 @@ security:
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/post/new, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/post/\d+/edit, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api, roles: ROLE_API_USER }

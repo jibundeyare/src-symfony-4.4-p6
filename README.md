@@ -47,3 +47,19 @@ Ce paramètre permet de désactiver la validation dans tous les formulaires.
 Si vous voulez que la validation des formulaires soit désactivée quand vous lancez des tests, créez un fichier `.env.test.local` avec le contenu suivant :
 
     DISABLE_HTML5_VALIDATION=true
+
+## Tester la connexion à l'API avec authentification par token
+
+Le token de l'utilisateur `api-user@example.com` est `phaath5aip9yee4ooviSoareeSohthies` (voir le fichier des users dans le dossier `fixtures`).
+
+Pour tester l'api, on peut utiliser `curl` :
+
+    curl --insecure --header "X-AUTH-TOKEN: phaath5aip9yee4ooviSoareeSohthies" https://localhost:8000/api/
+
+Ou `httpie` :
+
+    http --verify no https://localhost:8000/api/ X-AUTH-TOKEN:phaath5aip9yee4ooviSoareeSohthies
+
+`httpie` avec les entêtes HTTP de la requête :
+
+    http --verify no --verbose https://localhost:8000/api/ X-AUTH-TOKEN:phaath5aip9yee4ooviSoareeSohthies
