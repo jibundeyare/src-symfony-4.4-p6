@@ -23,7 +23,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=190)
      * @Assert\NotBlank
      * @Assert\Regex("/[^0-9]+/")
      * ou Assert\Regex("/\d+/")
