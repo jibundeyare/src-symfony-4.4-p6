@@ -63,3 +63,42 @@ Ou `httpie` :
 `httpie` avec les entêtes HTTP de la requête :
 
     http --verify no --verbose https://localhost:8000/api/ X-AUTH-TOKEN:phaath5aip9yee4ooviSoareeSohthies
+
+## Déploiement
+
+### Création du fichier `.env.test.local` ou `.env.prod.local`
+
+Pour le serveur de test, `.env.test.local` :
+
+    APP_ENV=test
+    DISABLE_HTML5_VALIDATION=true
+    DATABASE_URL=mysql://dba:123@127.0.0.1:3306/src_symfony_4_4_p6?serverVersion=mariadb-10.3.22
+
+Pour le serveur de prod, `.env.prod.local` :
+
+    APP_ENV=prod
+    DATABASE_URL=mysql://dba:123@127.0.0.1:3306/src_symfony_4_4_p6?serverVersion=mariadb-10.3.22
+
+### Définir les identifiants de connexion SSH
+
+#### Linux
+
+    ssh_host=example.com
+    ssh_user=foo
+    ssh_port=22
+
+#### Windows
+
+    set ssh_host=example.com
+    set ssh_user=foo
+    set ssh_port=22
+
+### Premier déploiement
+
+    dep deploy:prepare
+    dep deploy:env
+    dep deploy
+
+### Déploiements suivants
+
+    dep deploy
