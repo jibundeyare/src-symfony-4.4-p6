@@ -17,6 +17,12 @@ Projet blog
     # yarn encore dev
     symfony serve
 
+## Exemple de fichier `.env.local`
+
+    APP_ENV=dev
+    DATABASE_URL=mysql://dba:123@127.0.0.1:3306/src_symfony_4_4_p6?serverVersion=mariadb-10.3.22
+    DISABLE_HTML5_VALIDATION=false
+
 ## Injecter les fixtures dans la BDD
 
 La première fois :
@@ -33,12 +39,6 @@ Les fois suivantes, vous êtes obligés de détruire la BDD, de la reconstruire 
 Si vous trouvez ça long à taper, vous pouvez utiliser un script qui effectues les mêmes opérations :
 
     bin/hafilo.sh
-
-## Exemple de fichier `.env.local`
-
-    APP_ENV=dev
-    DATABASE_URL=mysql://dba:123@127.0.0.1:3306/src_symfony_4_4_p6?serverVersion=mariadb-10.3.22
-    DISABLE_HTML5_VALIDATION=false
 
 ## Le paramètre `DISABLE_HTML5_VALIDATION`
 
@@ -64,7 +64,10 @@ Ou `httpie` :
 
     http --verify no --verbose https://localhost:8000/api/ X-AUTH-TOKEN:phaath5aip9yee4ooviSoareeSohthies
 
-## Déploiement
+## Le déploiement
+
+La méthode de déploiement de ce projet nécessite l'installation de l'outil `deployer`.
+Voir [https://deployer.org/](https://deployer.org/) et [https://github.com/deployphp/deployer](https://github.com/deployphp/deployer) pour plus de détails.
 
 ### Création du fichier `.env.test.local` ou `.env.prod.local`
 
@@ -102,3 +105,4 @@ Pour le serveur de prod, `.env.prod.local` :
 ### Déploiements suivants
 
     dep deploy
+
