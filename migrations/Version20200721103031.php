@@ -20,7 +20,7 @@ final class Version20200721103031 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE user ADD api_token VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE user ADD api_token VARCHAR(190) DEFAULT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D6497BA2F5EB ON user (api_token)');
     }
 
