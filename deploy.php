@@ -119,3 +119,20 @@ task('database:rollback', function () {
 });
 
 after('deploy', 'clean:git-files');
+
+// Install and build front dependencies
+task('deploy:npm', function() {
+    run('cd {{release_path}} && npm install 2>&1');
+    run('cd {{release_path}} && npm run build 2>&1');
+});
+
+before('deploy:symlink', 'deploy:npm');
+
+// Reload services
+task('reload:services', function() {
+    run('sudo /bin/systemctl reload apache2');
+    run('sudo /bin/systemctl reload php7.4-fpm');
+});
+
+after('deploy:symlink', 'reload:services');
+
