@@ -27,7 +27,7 @@ host(getenv('ssh_host'))
 // set default stage
 set('default_stage', 'prod');
 
-// [Optional] Allocate tty for git clone. Default value is false.
+// [optional] allocate tty for git clone. Default value is false.
 set('git_tty', true);
 
 // shared files / dirs between deploys
@@ -107,13 +107,14 @@ task('database:rollback', function () {
     run(sprintf('{{bin/console}} doctrine:migrations:migrate prev %s', $options));
 });
 
-// Install and build front dependencies
+// install and build front end dependencies
 task('deploy:npm', function() {
     run('cd {{release_path}} && npm install 2>&1');
     run('cd {{release_path}} && npm run build 2>&1');
 });
 
-// Reload services
+// reload services
+// @warning requires a user with permission to reload services without using a password
 task('reload:services', function() {
     run('sudo /bin/systemctl reload apache2');
     run('sudo /bin/systemctl reload php7.4-fpm');
@@ -121,15 +122,10 @@ task('reload:services', function() {
 
 // triggers
 
-// migrate database before symlink new release.
 before('deploy:symlink', 'database:migrate');
-
-// deploy front dependencies
 before('deploy:symlink', 'deploy:npm');
 
-// reload services
 after('deploy:symlink', 'reload:services');
-
-// [optional] if deploy fails automatically unlock.
+// [optional] if deploy fails, unlock automatically
 after('deploy:failed', 'deploy:unlock');
 
