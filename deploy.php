@@ -73,11 +73,6 @@ task('deploy:env', function () {
     upload('.env.{{stage}}.local', '~/{{projects_dir}}/{{application}}/shared/.env.local');
 });
 
-desc('Clean git files');
-task('clean:git-files', function () {
-    run('rm -fr ~/{{projects_dir}}/{{application}}/current/.git');
-});
-
 desc('Load fixtures');
 task('fixtures:load', function () {
     $allFixtures = null;
@@ -118,14 +113,11 @@ task('database:rollback', function () {
     run(sprintf('{{bin/console}} doctrine:migrations:migrate prev %s', $options));
 });
 
-after('deploy', 'clean:git-files');
-
 // Install and build front dependencies
 task('deploy:npm', function() {
     run('cd {{release_path}} && npm install 2>&1');
     run('cd {{release_path}} && npm run build 2>&1');
 });
-
 before('deploy:symlink', 'deploy:npm');
 
 // Reload services
