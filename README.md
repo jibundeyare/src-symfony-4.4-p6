@@ -66,8 +66,32 @@ Ou `httpie` :
 
 ## Le déploiement
 
-La méthode de déploiement de ce projet nécessite l'installation de l'outil `deployer`.
-Voir [https://deployer.org/](https://deployer.org/) et [https://github.com/deployphp/deployer](https://github.com/deployphp/deployer) pour plus de détails.
+### Pré-requis
+
+En local :
+
+- l'outil de déploiement `deployer`
+- une connexion `ssh` vers un serveur
+
+Sur le serveur :
+
+- le serveur web `apache2`
+- le serveur d'application `php7.4-fpm`
+- le serveur de données `mariadb`
+- le gestionnaire de package back-end `composer`
+- le gestionnaire de package front-end `npm`
+- le gestionnaire de code source `git`
+- un compte utilisateur qui a la permission de recharger des services sans utiliser de mot de passe
+
+### Permission de recharger des services sans utiliser de mot de passe
+
+Pour attribuer la permission à l'utilisateur `foo` :
+
+    sudo visudo -f /etc/sudoers.d/foo
+
+Puis ajouter la ligne suivante dans le fichier et enregistrer :
+
+    foo ALL=(ALL) NOPASSWD: /bin/systemctl reload apache2,/bin/systemctl reload php7.4-fpm
 
 ### Création du fichier `.env.test.local` ou `.env.prod.local`
 
