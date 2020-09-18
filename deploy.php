@@ -51,12 +51,6 @@ set('writable_use_sudo', false);
 
 // tasks
 
-// [optional] if deploy fails automatically unlock.
-after('deploy:failed', 'deploy:unlock');
-
-// migrate database before symlink new release.
-before('deploy:symlink', 'database:migrate');
-
 desc('Test deployer');
 task('test:hello', function () {
     writeln('Hello world');
@@ -118,7 +112,6 @@ task('deploy:npm', function() {
     run('cd {{release_path}} && npm install 2>&1');
     run('cd {{release_path}} && npm run build 2>&1');
 });
-before('deploy:symlink', 'deploy:npm');
 
 // Reload services
 task('reload:services', function() {
@@ -126,5 +119,17 @@ task('reload:services', function() {
     run('sudo /bin/systemctl reload php7.4-fpm');
 });
 
+// triggers
+
+// migrate database before symlink new release.
+before('deploy:symlink', 'database:migrate');
+
+// deploy front dependencies
+before('deploy:symlink', 'deploy:npm');
+
+// reload services
 after('deploy:symlink', 'reload:services');
+
+// [optional] if deploy fails automatically unlock.
+after('deploy:failed', 'deploy:unlock');
 
