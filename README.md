@@ -106,3 +106,16 @@ Pour le serveur de prod, `.env.prod.local` :
 
     dep deploy
 
+### Exemple de premier déploiement sur Linux
+
+    ssh_host=example.com
+    ssh_user=foo
+    ssh_port=22
+    dep deploy:prepare
+    dep deploy:env
+    dep deploy
+
+### Exemple d'autres déploiements sur Linux
+
+    ssh_host=example.com ssh_user=foo ssh_port=22 dep deploy
+
